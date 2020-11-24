@@ -450,9 +450,15 @@ http://www.templatemo.com/tm-486-new-event
 			<div class="wow fadeInUp col-md-5 col-sm-5" data-wow-delay="1s">
 				<form id="form-registro" action="registro.php" method="post">
 					<input name="firstname" type="text" class="form-control" id="firstname" placeholder="Nombre completo">
-					<input name="iglesia" type="text" class="form-control" id="iglesia" placeholder="Nombre de tu iglesia">
-					<input name="seccion" type="text" class="form-control" id="seccion" placeholder="Nombre de tu sección">
-					<input name="region" type="text" class="form-control" id="region" placeholder="Nombre de tu region">
+					<select name="region" id="select_region" class="form-control">
+						
+					</select>
+					<select name="seccion" id="select_section" class="form-control">
+
+					</select>
+					<select name="iglesia" id="select_church" class="form-control">
+
+					</select>
 					<input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad">
 					<input name="phone" type="telephone" class="form-control" id="phone" placeholder="Celular">
 					<input name="email" type="email" class="form-control" id="email" placeholder="Correo electrónico">					
@@ -687,13 +693,23 @@ http://www.templatemo.com/tm-486-new-event
 <script src="js/custom.js"></script>
 <script src="js/config.js"></script>
 <script src="js/registro.js"></script>
-<script src="js/regiones.js"></script>
+<script src="js/handlers/SelectManager.js"></script>
+<script src="js/selects/RegionSelect.js"></script>
+<script src="js/selects/SectionSelect.js"></script>
+<script src="js/selects/ChurchSelect.js"></script>
+
 <script>
 
 	(()=> {
 		document.addEventListener("DOMContentLoaded",()=>{
-			const region = new Region();
-			region.getRegiones();
+			const regionSelect = new RegionSelect("#select_region");
+			const sectionSelect = new SectionSelect("#select_section");
+			const churchSelect = new ChurchSelect("#select_church");
+
+			regionSelect.events.subscribe(sectionSelect);
+			regionSelect.onLoadRegions();
+
+			sectionSelect.events.subscribe(churchSelect);
 		});
 	})();
 </script>

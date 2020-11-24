@@ -1,4 +1,4 @@
-function makeRequest(url, method = "GET",data = {}) {
+function makeRequest(url, method = "GET",data = null) {
     return new Promise(function (resolve, reject) {
         let xhr = new XMLHttpRequest();
         xhr.open(method, url);
@@ -26,7 +26,7 @@ function makeRequest(url, method = "GET",data = {}) {
             });
         };
 
-        if(Object.keys(data).length === 0) xhr.send();
+        if(data == null) xhr.send();
         else xhr.send(data);
     });
 }

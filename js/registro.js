@@ -1,24 +1,14 @@
 (()=> {
     document.addEventListener("DOMContentLoaded",() => {
-        const form = (()=>{
-            let element = document.getElementById("form-registro");
-            return {
-                submit: (e) => {
-                    e.preventDefault();
-                    const data = new FormData(element);
-                    const xhr = new XMLHttpRequest();
-                    xhr.open(element.getAttribute('method'),element.getAttribute('action'));
-                    xhr.onload = () => {
-                        if(xhr.status === 200){
-                            const response = JSON.parse(xhr.responseText);
-                            console.log(response);
-                        }
-                    }
-                    xhr.send(data);
-                }
+        document.querySelector("#form-registro").addEventListener("submit",async e => {
+            e.preventDefault();
+            e.pre
+            const res = await makeRequest(`api/registro/add.php`,"POST",new FormData(e.target));
+            if(res.success){
+                e.target.reset();
+            }else{
+                alert("Ocurrió un error!");
             }
-        })();
-
-        document.getElementById("form-registro").addEventListener("submit",form.submit);
+        });
     });
 })();
